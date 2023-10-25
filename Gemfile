@@ -67,6 +67,9 @@ gem 'rswag-ui'
 # Models
 gem 'annotate'
 
+# Mail previewer
+gem 'letter_opener'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 

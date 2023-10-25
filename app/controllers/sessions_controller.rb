@@ -1,2 +1,27 @@
 class SessionsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
+  def create
+    result = Sessions::Create.run(params)
+    if result.valid?
+      cookies.encrypted[:auth_token] = { value: result.result.auth_token, expires: 1.day.from_now }
+      render json: result.result, serializer: Sessions::SessionSerializer
+    else
+      render json: result.errors, status: :bad_request
+    end
+  end
+
+  def login
+    result = Sessions::Login.run(params)
+    if result.valid?
+      render json: { message: ' Email with code, was succesfully sended' }, status: :ok
+    else
+      render json: result.errors, status: :bad_request
+    end
+  end
+
+  def logout
+    cookies.delete(:auth_token)
+    head :no_content
+  end
 end

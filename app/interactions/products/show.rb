@@ -3,7 +3,7 @@ module Products
     integer :id
 
     def execute
-      Product.find_by(id:) || errors.add(:id, 'does not exist')
+      Product.find(id)
     end
   end
 end

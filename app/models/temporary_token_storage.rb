@@ -1,0 +1,2 @@
+class TemporaryTokenStorage < ApplicationRecord
+end

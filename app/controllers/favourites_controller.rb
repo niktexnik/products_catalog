@@ -1,4 +1,5 @@
 class FavoritesController < ApplicationController
+  before_action :current_user
   def create
     result = ::Favorites::Create(product_id: params[:product_id], user_id: current_user.id)
     if result.valid?

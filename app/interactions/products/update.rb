@@ -8,9 +8,7 @@ module Products
 
     def execute
       product.update(prepared_attributes)
-      return product if product.valid?
-
-      errors.merge!(product.errors)
+      product
     end
 
     private
