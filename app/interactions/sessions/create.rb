@@ -9,7 +9,7 @@ module Sessions
     def execute
       storage
       update_user
-      storage.destroy
+      storage.destroy if storage.is_a?(TemporaryTokenStorage)
       user
     end
 

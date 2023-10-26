@@ -1,14 +1,13 @@
 module Favourites
   class Destroy < ActiveInteraction::Base
-    integer :id
+    integer :id, :user_id
 
     def execute
-      product.destroy
-      head 204
+      favourite.is_a?(Favourite) ? favourite.destroy : errors.add(:error, 'You can\'t remove it from favourite')
     end
 
-    def product
-      @product ||= Product.find(id)
+    def favourite
+      Favourite.where(product_id: id, user_id:).last
     end
   end
 end
