@@ -17,11 +17,11 @@ module Products
     def paginated_products
       return products.page(page) if limit.nil?
 
-      products.page(page).limit(limit)
+      products.page(page).per(limit)
     end
 
     def products
-      @products = ::Product.order("#{sorting_field} #{sorting_order.upcase} NULLS LAST")
+      @products = ::Product.order("#{sorting_field} #{sorting_order} NULLS LAST")
     end
   end
 end

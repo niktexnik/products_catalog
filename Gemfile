@@ -63,6 +63,8 @@ gem 'active_interaction'
 gem 'pry-rails'
 gem 'rswag-api'
 gem 'rswag-ui'
+gem 'rswag-specs'
+gem 'database_cleaner'
 
 # Models
 gem 'annotate'
@@ -83,11 +85,11 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'main'
   gem 'rspec'
+  gem 'rspec-rails'
 
 # Code styling
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
-  gem 'rubocop-rspec'
 end
 
 group :development do

@@ -1,7 +1,6 @@
 module Api
   module V1
     class SessionsController < ::Api::ApplicationController
-
       def create
         result = Sessions::Create.run(params)
         if result.valid?

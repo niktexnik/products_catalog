@@ -13,7 +13,7 @@ module Api
       def destroy
         result = ::Favourites::Destroy.run(params)
         if result.valid?
-          render json: { message: 'Success' }, status: :ok
+          head :no_content
         else
           render json: result.errors.details, status: :bad_request
         end

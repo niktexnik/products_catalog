@@ -1,0 +1,177 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.1.3
+  Exclude:
+    - bin/**/*
+    - db/**/*
+    - spec/**/*_spec.rb
+    - spec/factories/**/*
+    - node_modules/**/*
+    - .pryrc
+    - bundler_stubs/**/*
+Rails:
+  Enabled: true
+
+Style/Documentation:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/BlockLength:
+  Max: 250
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/ClassLength:
+  Max: 250
+
+Metrics/CyclomaticComplexity:
+  Enabled: False
+
+Metrics/MethodLength:
+  Enabled: False
+  # Max: 20
+
+Metrics/PerceivedComplexity:
+  Enabled: False
+
+
+Metrics/ParameterLists:
+  Enabled: true
+
+Metrics/AbcSize:
+  Enabled: false
+
+Style/MultilineBlockChain:
+  Enabled: False
+
+Style/MultilineIfModifier:
+  Enabled: False
+
+Lint/SuppressedException:
+  Enabled: False
+
+Style/OrAssignment:
+  Enabled: false
+
+Style/ParallelAssignment:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Enabled: true
+
+Style/ClassAndModuleChildren:
+  Enabled: true
+
+Rails/InverseOf:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: true
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: true
+
+Style/FormatStringToken:
+  Enabled: true
+
+Naming/PredicateName:
+  Enabled: true
+
+Rails/HasAndBelongsToMany:
+  Enabled: true
+
+Style/Alias:
+  Enabled: false
+
+Layout/SpaceInsideStringInterpolation:
+  Enabled: true
+
+Lint/EnsureReturn:
+  Enabled: false
+
+Lint/ShadowedException:
+  Enabled: false
+
+Style/RegexpLiteral:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  Enabled: true
+
+Lint/ParenthesesAsGroupedExpression:
+  Enabled: false
+
+Lint/RequireParentheses:
+  Enabled: false
+
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
+
+Style/EmptyCaseCondition:
+  Enabled: false
+
+Lint/UnifiedInteger:
+  Enabled: true
+
+
+Rails/OutputSafety:
+  Enabled: true
+
+
+Style/SafeNavigation:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: true
+
+Style/RescueModifier:
+  Enabled: true
+
+Style/Lambda:
+  Enabled: false
+
+Rails/FilePath:
+  Exclude:
+    - spec/rails_helper.rb
+
+Rails/UnknownEnv:
+  Enabled: true
+
+Style/StructInheritance:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/EachWithObject:
+  Enabled: false
+
+Naming/VariableNumber:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+
+Rails/HelperInstanceVariable:
+  Enabled: false
+
+Lint/ConstantDefinitionInBlock:
+  Enabled: false
+
+Rails/UniqueValidationWithoutIndex:
+  Enabled: false
+
+Lint/MissingSuper:
+  Enabled: false
+
+Rails/ApplicationController:
+  Enabled: true

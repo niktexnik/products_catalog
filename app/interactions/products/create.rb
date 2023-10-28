@@ -3,12 +3,10 @@ module Products
     string :name, :description, :full_description
     file :image
 
-    def execute
-      product || product.errors
-    end
+    validates :name, :description, :full_description, :image, presence: true
 
-    def product
-      @product ||= Product.create(inputs)
+    def execute
+      Product.create(inputs)
     end
   end
 end

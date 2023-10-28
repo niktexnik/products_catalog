@@ -4,11 +4,13 @@ module Products
     string :name, default: nil
     string :description, default: nil
     string :full_description, default: nil
-    string :image, default: nil
+    file :image, default: nil
+
+    validate :check_blank_attributes
 
     def execute
       product.update(prepared_attributes)
-      product
+      product if product.valid?
     end
 
     private
@@ -18,7 +20,11 @@ module Products
     end
 
     def prepared_attributes
-      { name:, description:, full_description:, image: }.compact
+      @prepared_attributes ||= { name:, description:, full_description:, image: }.compact
+    end
+
+    def check_blank_attributes
+      errors.add(:error, 'Attributes can\'t be blank!') if inputs.values.include?('')
     end
   end
 end
