@@ -8,7 +8,7 @@ module Api
           cookies.encrypted[:auth_token] = { value: result.result.auth_token, expires: 1.day.from_now }
           render json: result.result, serializer: Sessions::SessionSerializer
         else
-          render json: result.errors, status: :bad_request
+          render json: { message: result.errors.to_a }, status: :bad_request
         end
       end
 
@@ -17,7 +17,7 @@ module Api
         if result.valid?
           render json: { message: ' Email with code, was succesfully sended', attributes: result.result }, status: :ok
         else
-          render json: result.errors, status: :bad_request
+          render json: { message: result.errors }, status: :bad_request
         end
       end
 

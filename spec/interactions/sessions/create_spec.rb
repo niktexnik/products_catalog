@@ -88,7 +88,7 @@ RSpec.describe Sessions::Create do
       
       it 'returns invalid' do
         expect(run).to be_invalid
-        expect(run.errors.full_messages).to include("Error Not verifyed!")
+        expect(run.errors.full_messages).to include("Not verifyed!")
       end
     end
 
@@ -99,7 +99,7 @@ RSpec.describe Sessions::Create do
       
       it 'returns invalid' do
         expect(run).to be_invalid
-        expect(run.errors.full_messages).to include("Error Not verifyed!")
+        expect(run.errors.full_messages).to include("Not verifyed!")
       end
     end
 
@@ -121,7 +121,7 @@ RSpec.describe Sessions::Create do
       
       it 'returns invalid' do
         expect(run).to be_invalid
-        expect(run.errors.full_messages).to include("Error Not verifyed!")
+        expect(run.errors.full_messages).to include("Not verifyed!")
       end
     end
 
@@ -132,7 +132,7 @@ RSpec.describe Sessions::Create do
       
       it 'returns invalid' do
         expect(run).to be_invalid
-        expect(run.errors.full_messages).to include("Error Your code was expired, please get it again")
+        expect(run.errors.full_messages).to include("Your code was expired, please get it again")
       end
     end
   end

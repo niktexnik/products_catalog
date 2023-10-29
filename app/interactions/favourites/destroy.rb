@@ -3,7 +3,7 @@ module Favourites
     integer :id, :user_id
 
     def execute
-      favourite.is_a?(Favourite) ? favourite.destroy : errors.add(:error, 'You can\'t remove it from favourite')
+      favourite.is_a?(Favourite) ? favourite.destroy : errors.add(:base, 'You can\'t remove it from favourite')
     end
 
     private

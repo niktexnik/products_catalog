@@ -24,7 +24,7 @@ module Products
     end
 
     def check_blank_attributes
-      errors.add(:error, 'Attributes can\'t be blank!') if inputs.values.include?('')
+      errors.add(:base, 'Attributes can\'t be blank!') if inputs.values.include?('')
     end
   end
 end

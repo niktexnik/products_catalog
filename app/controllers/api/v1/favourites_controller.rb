@@ -6,7 +6,7 @@ module Api
         if result.valid?
           render json: 'Success', status: :ok
         else
-          render json: result.errors.details, status: :bad_request
+          render json: { message: result.errors.to_a }, status: :bad_request
         end
       end
 
@@ -15,7 +15,7 @@ module Api
         if result.valid?
           head :no_content
         else
-          render json: result.errors.details, status: :bad_request
+          render json: { message: result.errors.to_a }, status: :bad_request
         end
       end
     end

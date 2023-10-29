@@ -18,7 +18,7 @@ module Sessions
     private
 
     def storage
-      @storage ||= TemporaryTokenStorage.find_by(email:, token:, code:) || errors.add(:error, 'Not verifyed!')
+      @storage ||= TemporaryTokenStorage.find_by(email:, token:, code:) || errors.add(:base, 'Not verifyed!')
     end
 
     def user
@@ -30,7 +30,7 @@ module Sessions
     end
 
     def check_expired_code
-      errors.add(:error, 'Your code was expired, please get it again') unless REDIS_CURRENT.get(email)
+      errors.add(:base, 'Your code was expired, please get it again') unless REDIS_CURRENT.get(email)
     end
 
     def validate_email
