@@ -1,184 +1,236 @@
----
-openapi: 3.0.1
+openapi: 3.0.3
 info:
   title: API V1
-  version: v1
+  version: 1.0.0
 paths:
-  "/api/v1/products/favourites":
-    parameters:
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: integer
-    - name: user_id
-      in: path
-      description: user_id
-      required: true
-      schema:
-        type: integer
+  /api/v1/login:
     post:
-      summary: create favourite
+      summary: Create a login session
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
       responses:
         '200':
-          description: successful
-  "/api/v1/products/favourites/{id}":
-    parameters:
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: integer
-    - name: user_id
-      in: path
-      description: user_id
-      required: true
-      schema:
-        type: integer
-    delete:
-      summary: delete favourite
+          description: Successful
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '400':
+          description: Bad Request
+  /api/v1/create:
+    post:
+      summary: Create a session
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                code:
+                  type: integer
+                token:
+                  type: string
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                code:
+                  type: integer
+                token:
+                  type: string
       responses:
         '200':
-          description: successful
-  "/api/v1/products":
+          description: Successful
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '400':
+          description: Bad Request
+  /api/v1/destroy:
+    post:
+      summary: Delete a session
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '400':
+          description: Bad Request
+  /api/v1/products:
     get:
-      summary: list products
+      summary: List products
       responses:
         '200':
-          description: successful
-    post:
-      summary: create product
+          description: Successful
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '400':
+          description: Bad Request
+  post:
+    summary: Create a product
+    requestBody:
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+              full_description:
+                type: string
+              image:
+                type: file
+    responses:
+        '200':
+          description: Successful
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '400':
+          description: Bad Request
+  /api/v1/products/{id}:
+    get:
+      summary: Show a product
       parameters:
-      - name: name
-        in: path
-        description: name
-        required: true
-        schema:
-          type: string
-      - name: description
-        in: path
-        description: description
-        required: true
-        schema:
-          type: string
-      - name: full_description
-        in: path
-        description: full description
-        required: true
-        schema:
-          type: string
-      - name: image
-        in: path
-        description: image
-        required: true
-        schema:
-          type: file
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         '200':
-          description: successful
-  "/api/v1/products/{id}":
-    parameters:
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: string
-    get:
-      summary: show product
-      responses:
-        '200':
-          description: successful
+          description: Successful
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '400':
+          description: Bad Request
     patch:
-      summary: update product
+      summary: Update a product
       parameters:
-      - name: name
-        in: path
-        required: false
-        description: name
-        schema:
-          type: string
-      - name: description
-        in: path
-        required: false
-        description: description
-        schema:
-          type: string
-      - name: full_description
-        in: path
-        required: false
-        description: full description
-        schema:
-          type: string
-      - name: image
-        in: path
-        required: false
-        description: image
-        schema:
-          type: file
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                full_description:
+                  type: string
+                image:
+                  type: file
       responses:
         '200':
-          description: successful
+          description: Successful
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '400':
+          description: Bad Request
     delete:
-      summary: delete product
+      summary: Delete a product
       parameters:
-      - name: id
-        in: path
-        description: id
-        required: true
-        schema:
-          type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         '200':
-          description: successful
-  "/api/v1/login":
-    parameters:
-    - name: email
-      in: path
-      description: email
-      required: true
-      schema:
-        type: integer
+          description: Successful
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '400':
+          description: Bad Request
+  /api/v1/products/favourites:
     post:
-      summary: login session
+      summary: Create a favorite product
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                product_id:
+                  type: integer
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                product_id:
+                  type: integer
       responses:
         '200':
-          description: successful
-  "/api/v1/create":
-    parameters:
-    - name: email
-      in: path
-      description: email
-      required: true
-      schema:
-        type: string
-    - name: code
-      in: path
-      description: code
-      required: true
-      schema:
-        type: integer
-    - name: token
-      in: path
-      description: token
-      required: true
-      schema:
-        type: string
-    post:
-      summary: create session
+          description: Successful
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '400':
+          description: Bad Request
+  /api/v1/products/favourites/{id}:
+    delete:
+      summary: Delete a favorite product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
       responses:
         '200':
-          description: successful
-  "/api/v1/destroy":
-    post:
-      summary: delete session
-      responses:
-        '200':
-          description: successful
+          description: Successful
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '400':
+          description: Bad Request
 servers:
-- url: http://localhost:3000
-  variables:
-    defaultHost:
-      default: localhost:3000
+  - url: http://localhost:3000
+    variables:
+      defaultHost:
+        default: localhost:3000

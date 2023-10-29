@@ -22,6 +22,6 @@ FactoryBot.define do
        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
     end
-    image { Rails.root.join('spec/fixtures/files/images/sample.png').open }
+    image { Rails.root.join('spec/fixtures/files/images/sample.jpg').open }
   end
 end

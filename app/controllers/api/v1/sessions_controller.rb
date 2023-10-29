@@ -15,7 +15,7 @@ module Api
       def login
         result = Sessions::Login.run(params)
         if result.valid?
-          render json: { message: ' Email with code, was succesfully sended' }, status: :ok
+          render json: { message: ' Email with code, was succesfully sended', attributes: result.result }, status: :ok
         else
           render json: result.errors, status: :bad_request
         end

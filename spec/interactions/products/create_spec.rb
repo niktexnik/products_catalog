@@ -7,12 +7,12 @@ RSpec.describe Products::Create do
 
     let(:params) { { name: 'Product',
                      description: 'Description', full_description: 'Full description',
-                     image: Rails.root.join('spec/fixtures/files/images/sample.png').open } }
+                     image: Rails.root.join('spec/fixtures/files/images/sample.jpg').open } }
 
     it 'returns valid' do
       expect(run).to be_valid
       expect(run.result).to have_attributes(name: 'Product', description: 'Description', full_description: 'Full description')
-      expect(run.result.image.identifier).to eq('sample.png')
+      expect(run.result.image.identifier).to eq('sample.jpg')
     end
 
     context 'when user not pass name' do

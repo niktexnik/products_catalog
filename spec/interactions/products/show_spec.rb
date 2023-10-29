@@ -11,7 +11,7 @@ RSpec.describe Products::Show do
       expect(run).to be_valid
       expect(run.result).to have_attributes(name: product.name, description: product.description,
                                             full_description: product.full_description)
-      expect(run.result.image.identifier).to eq('sample.png')
+      expect(run.result.image.identifier).to eq('sample.jpg')
     end
 
     context 'when user pass non existed id' do

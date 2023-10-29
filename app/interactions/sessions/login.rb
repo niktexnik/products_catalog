@@ -1,12 +1,15 @@
 module Sessions
-  class Login < ActiveInteraction::Base
+  class Login < BaseInteraction
     string :email
+
     validates :email, presence: true
+    validate :validate_email
 
     def execute
       create_model
       send_mail
       set_code_expired
+      attributes
     end
 
     private
@@ -16,7 +19,11 @@ module Sessions
     end
 
     def send_mail
-      MailgunMailer.send_verify_code(email, create_model.code)
+      MailgunMailer.send_verify_code(email, create_model.code).deliver_now
+    end
+
+    def attributes
+      { email: create_model.email, token: create_model.token }
     end
 
     def set_code_expired
@@ -25,6 +32,10 @@ module Sessions
 
     def generate_token
       SecureRandom.base58(24)
+    end
+
+    def validate_email
+      check_email(email)
     end
   end
 end

@@ -8,6 +8,8 @@ module Favourites
       favourite || favourite.errors
     end
 
+    private
+
     def favourite
       @favourite ||= Favourite.create(inputs)
     end

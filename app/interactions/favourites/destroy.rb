@@ -6,6 +6,8 @@ module Favourites
       favourite.is_a?(Favourite) ? favourite.destroy : errors.add(:error, 'You can\'t remove it from favourite')
     end
 
+    private
+
     def favourite
       Favourite.where(product_id: id, user_id:).last
     end

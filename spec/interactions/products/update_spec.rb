@@ -2,18 +2,19 @@ require 'rails_helper'
 
 RSpec.describe Products::Update do
   subject(:interaction) { described_class }
+
   describe '.run' do
     subject(:run) { interaction.run(params) }
 
     let!(:product) { FactoryBot.create(:product) }
     let(:params) { { id: product.id, name: 'Updated product',
                      description: 'Updated description', full_description: 'Updated full description',
-                     image: Rails.root.join('spec/fixtures/files/images/sample2.png').open } }
+                     image: Rails.root.join('spec/fixtures/files/images/sample2.jpg').open } }
 
     it 'returns valid' do
       expect(run).to be_valid
       expect(run.result).to have_attributes(name: 'Updated product', description: 'Updated description', full_description: 'Updated full description')
-      expect(run.result.image.identifier).to eq('sample2.png')
+      expect(run.result.image.identifier).to eq('sample2.jpg')
     end
 
     context 'when user not pass name' do
@@ -25,7 +26,7 @@ RSpec.describe Products::Update do
         expect { run }.not_to change(product, :name)
         expect(run).to be_valid
         expect(run.result).to have_attributes(name: product.name, description: 'Updated description', full_description: 'Updated full description')
-        expect(run.result.image.identifier).to eq('sample2.png')
+        expect(run.result.image.identifier).to eq('sample2.jpg')
       end
     end
 
@@ -48,7 +49,7 @@ RSpec.describe Products::Update do
         expect { run }.not_to change(product, :description)
         expect(run).to be_valid
         expect(run.result).to have_attributes(name: 'Updated product', description: product.description, full_description: 'Updated full description')
-        expect(run.result.image.identifier).to eq('sample2.png')
+        expect(run.result.image.identifier).to eq('sample2.jpg')
       end
     end
 
@@ -71,7 +72,7 @@ RSpec.describe Products::Update do
         expect { run }.not_to change(product, :full_description)
         expect(run).to be_valid
         expect(run.result).to have_attributes(name: 'Updated product', description: 'Updated description', full_description: product.full_description)
-        expect(run.result.image.identifier).to eq('sample2.png')
+        expect(run.result.image.identifier).to eq('sample2.jpg')
       end
     end
 
@@ -94,7 +95,7 @@ RSpec.describe Products::Update do
         expect { run }.not_to change(product, :image)
         expect(run).to be_valid
         expect(run.result).to have_attributes(name: 'Updated product', description: 'Updated description', full_description: 'Updated full description')
-        expect(run.result.image.identifier).to eq('sample.png')
+        expect(run.result.image.identifier).to eq('sample.jpg')
       end
     end
 

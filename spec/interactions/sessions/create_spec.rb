@@ -103,6 +103,17 @@ RSpec.describe Sessions::Create do
       end
     end
 
+    context 'when user pass not valid email' do
+      before do
+        params[:email] = 'vas222'
+      end
+      
+      it 'returns invalid' do
+        expect(run).to be_invalid
+        expect(run.errors.full_messages).to include("Wrong email please check your email")
+      end
+    end
+
     context 'when user not pass wrong code' do
       before do
         params[:token] = 'afkdbsknaskjfnjnafj324234'

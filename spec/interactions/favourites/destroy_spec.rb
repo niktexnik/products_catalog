@@ -1,6 +1,5 @@
 
 require 'rails_helper'
-require 'byebug'
 
 RSpec.describe Favourites::Destroy do
   subject(:interaction) { described_class }

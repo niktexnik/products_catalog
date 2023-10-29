@@ -1,45 +1,48 @@
+require 'rails_helper'
+require 'redis'
 
-# require 'rails_helper'
+RSpec.describe Sessions::Login do
+  subject(:interaction) { described_class }
+  describe '.run' do
+    subject(:run) { interaction.run(params) }
 
-# RSpec.describe Api::Orca::V1::SessionsController, type: :controller do
-#   describe '#create' do
-#     let(:password) { '12345678' }
-#     let(:user) { create(:user, password: password) }
-#     context 'correct' do
-#       before(:each) { post :create, params: { email: user.email, password: password } }
-#       it { expect(json[:auth_token]).to eq user.auth_token }
-#     end
+    let(:params) { { email: 'ololo@rspec.ru' } }
 
-#     context 'incorrect email or password' do
-#       it 'incorrect email' do
-#         post :create, params: { email: "incorrect_#{user.email}", password: password }
-#         expect(json.first[:error]).to eq 'error_with_your_email_or_password'
-#       end
+    it 'returns valid' do
+      expect(run).to be_valid
+    end
 
-#       it 'incorrect password' do
-#         post :create, params: { email: user.email, password: "incorrect_#{password}" }
-#         expect(json.first[:error]).to eq 'error_with_your_email_or_password'
-#       end
-#     end
+    context 'when user not pass email' do
+      before do
+        params[:email] = nil
+      end
+      
+      it 'returns invalid' do
+        expect(run).to be_invalid
+        expect(run.errors.full_messages).to include("Email is required")
+      end
+    end
 
-#     context 'missing parameter' do
-#       it 'missing email' do
-#         post :create, params: { password: password }
-#         expect(json.first[:error]).to eq 'missing_parameter'
-#       end
+    context 'when user pass blank email' do
+      before do
+        params[:email] = ''
+      end
+      
+      it 'returns invalid' do
+        expect(run).to be_invalid
+        expect(run.errors.full_messages).to include("Email can't be blank")
+      end
+    end
 
-#       it 'missing password' do
-#         post :create, params: { email: user.email }
-#         expect(json.first[:error]).to eq 'missing_parameter'
-#       end
-
-#       it 'user blocked' do
-#         user.block!
-#         post :create, params: { email: user.email, password: password }
-#         expect(json.first[:error]).to eq 'user_blocked'
-#       end
-#     end
-#   end
-# end
-
-
+    context 'when user pass invalid email' do
+      before do
+        params[:email] = 'lolo'
+      end
+      
+     it 'returns invalid' do
+        expect(run).to be_invalid
+        expect(run.errors.full_messages).to include("Wrong email please check your email")
+      end
+    end
+  end
+end
