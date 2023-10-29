@@ -60,10 +60,8 @@ gem 'devise'
 
 gem 'active_interaction'
 
-gem 'database_cleaner'
 gem 'pry-rails'
 gem 'rswag-api'
-gem 'rswag-specs'
 gem 'rswag-ui'
 
 # Models
@@ -81,11 +79,13 @@ gem 'letter_opener'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'byebug'
+  gem 'database_cleaner'
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'main'
   gem 'rspec'
   gem 'rspec-rails'
+  gem 'rswag-specs'
 
   # Code styling
   gem 'rubocop', require: false

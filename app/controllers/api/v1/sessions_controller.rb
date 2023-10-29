@@ -21,7 +21,7 @@ module Api
         end
       end
 
-      def logout
+      def destroy
         cookies.delete(:auth_token)
         head :no_content
       end
