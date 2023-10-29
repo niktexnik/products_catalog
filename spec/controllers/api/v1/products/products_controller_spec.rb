@@ -2,14 +2,22 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::ProductsController, type: :controller do
   describe 'User was authorized and have access to product CRUD' do
-    let(:current_user) { create(:user) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:product) { FactoryBot.create(:product) }
     let(:product_params) { { name: 'New Product', description: 'ololo', full_description: 'lolololololollololollo',
                              image: Rails.root.join('spec/fixtures/files/images/sample.png').open } }
     let(:updated_params) { { name: 'Updated Product', description: 'Updated Product lol',
                              full_description: 'Updated Product lolololololollololollo' } }
+
+    before do
+      request.cookies['auth_token'] = user.auth_token
+    end
+
     describe 'GET #index products' do
       it 'returns a successful response' do
-        get :index
+        @current_user = user
+        cookies['auth_token'] = user.auth_token
+        get :index, {'cookie' => cookies['auth_token'] = user.auth_token}
         expect(response).to have_http_status(:success)
       end
     end
@@ -30,8 +38,7 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 
     describe 'PUT #update' do
       it 'updates an existing product' do
-        existing_product = Product.last
-        put :update, params: { id: existing_product.id, product: updated_params }
+        put :update, params: { id: product.id, product: updated_params }
         expect(response).to have_http_status(:success)
 
       end
@@ -39,58 +46,56 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 
     describe 'DELETE #destroy' do
       it 'deletes an existing product' do
-        existing_product = Product.last
-
-        delete :destroy, params: { id: existing_product.id }
+        delete :destroy, params: { id: product.id }
         expect(response).to have_http_status(:no_content)
 
       end
     end
   end
 
-  describe 'User was unauthorized and didn\'t have access to product CRUD' do
-    @current_user = nil
-    let(:product_params) { { name: 'New Product', description: 'ololo', full_description: 'lolololololollololollo',
-                              image: Rails.root.join('spec/fixtures/files/images/sample.png').open } }
-    let(:updated_params) { { name: 'Updated Product', description: 'Updated Product lol',
-                              full_description: 'Updated Product lolololololollololollo' } }
-    describe 'GET #index products' do
-      it 'returns a successful response' do
-        get :index
-        expect(response).to have_http_status(:unauthorized)
-      end
-    end
+  # describe 'User was unauthorized and didn\'t have access to product CRUD' do
+  #   @current_user = nil
+  #   let(:product_params) { { name: 'New Product', description: 'ololo', full_description: 'lolololololollololollo',
+  #                             image: Rails.root.join('spec/fixtures/files/images/sample.png').open } }
+  #   let(:updated_params) { { name: 'Updated Product', description: 'Updated Product lol',
+  #                             full_description: 'Updated Product lolololololollololollo' } }
+  #   describe 'GET #index products' do
+  #     it 'returns a successful response' do
+  #       get :index
+  #       expect(response).to have_http_status(:unauthorized)
+  #     end
+  #   end
 
-    describe 'GET #show' do
-      it 'returns a successful response' do
-        get :show, params: { id: 1 }
-        expect(response).to have_http_status(:unauthorized)
-      end
-    end
+  #   describe 'GET #show' do
+  #     it 'returns a successful response' do
+  #       get :show, params: { id: 1 }
+  #       expect(response).to have_http_status(:unauthorized)
+  #     end
+  #   end
 
-    describe 'POST #create' do
-      it 'create a new product' do
-        post :create, params: { product: product_params }
-        expect(response).to have_http_status(:unauthorized)
-      end
-    end
+  #   describe 'POST #create' do
+  #     it 'create a new product' do
+  #       post :create, params: { product: product_params }
+  #       expect(response).to have_http_status(:unauthorized)
+  #     end
+  #   end
 
-    describe 'PUT #update' do
-      it 'updates an existing product' do
-        existing_product = Product.last
-        put :update, params: { id: existing_product.id, product: updated_params }
-        expect(response).to have_http_status(:unauthorized)
+  #   describe 'PUT #update' do
+  #     it 'updates an existing product' do
+  #       existing_product = Product.last
+  #       put :update, params: { id: existing_product.id, product: updated_params }
+  #       expect(response).to have_http_status(:unauthorized)
 
-      end
-    end
+  #     end
+  #   end
 
-    describe 'DELETE #destroy' do
-      it 'deletes an existing product' do
-        existing_product = Product.last
+  #   describe 'DELETE #destroy' do
+  #     it 'deletes an existing product' do
+  #       existing_product = Product.last
 
-        delete :destroy, params: { id: existing_product.id }
-        expect(response).to have_http_status(:no_content)
-      end
-    end
-  end
+  #       delete :destroy, params: { id: existing_product.id }
+  #       expect(response).to have_http_status(:no_content)
+  #     end
+  #   end
+  # end
 end

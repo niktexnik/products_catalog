@@ -19,45 +19,11 @@ RSpec.describe 'api/v1/products', type: :request do
     end
 
     post('create product') do
+      parameter name: 'name', in: :path, type: :string, description: 'name'
+      parameter name: 'description', in: :path, type: :string, description: 'description'
+      parameter name: 'full_description', in: :path, type: :string, description: 'full description'
+      parameter name: 'image', in: :path, type: :file, description: 'image'
       response(200, 'successful') do
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-  end
-
-  path '/api/v1/products/new' do
-
-    get('new product') do
-      response(200, 'successful') do
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-  end
-
-  path '/api/v1/products/{id}/edit' do
-    # You'll want to customize the parameter types...
-    parameter name: 'id', in: :path, type: :string, description: 'id'
-
-    get('edit product') do
-      response(200, 'successful') do
-        let(:id) { '123' }
-
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -90,21 +56,11 @@ RSpec.describe 'api/v1/products', type: :request do
     end
 
     patch('update product') do
-      response(200, 'successful') do
-        let(:id) { '123' }
+      parameter name: 'name', in: :path, type: :string, required: false, description: 'name'
+      parameter name: 'description', in: :path, type: :string, required: false, description: 'description'
+      parameter name: 'full_description', in: :path, type: :string, required: false, description: 'full description'
+      parameter name: 'image', in: :path, type: :file, required: false, description: 'image'
 
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-
-    put('update product') do
       response(200, 'successful') do
         let(:id) { '123' }
 
@@ -120,6 +76,7 @@ RSpec.describe 'api/v1/products', type: :request do
     end
 
     delete('delete product') do
+      parameter name: 'id', in: :path, type: :string, description: 'id'
       response(200, 'successful') do
         let(:id) { '123' }
 

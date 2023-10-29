@@ -22,7 +22,6 @@ FactoryBot.define do
   factory :user do
     sequence(:name) { |n| "User_#{n}_#{Time.current.to_i}" }
     sequence(:email) { |n| "email#{n}@l-tex.com" }
-    password { '12345678' }
 
     trait :admin do
       sequence(:name) { |n| "admin#{n}" }

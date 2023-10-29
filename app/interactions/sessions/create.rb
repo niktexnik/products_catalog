@@ -2,13 +2,14 @@ module Sessions
   class Create < ActiveInteraction::Base
     integer :code
     string :email
+    string :token
 
-    validates :email, :code, presence: true
+    validates :email, :code, :token, presence: true
     validate :check_expired_code
 
     def execute
       storage
-      update_user
+      update_auth_token
       storage.destroy if storage.is_a?(TemporaryTokenStorage)
       user
     end
@@ -21,16 +22,12 @@ module Sessions
       @user ||= User.find_or_create_by(email:)
     end
 
-    def update_user
+    def update_auth_token
       user.update(auth_token: SecureRandom.base58(24))
     end
 
     def check_expired_code
-      errors.add(:error, 'Your code was expired, please get it again') unless token
-    end
-
-    def token
-      @token ||= REDIS_CURRENT.get(email)
+      errors.add(:error, 'Your code was expired, please get it again') unless REDIS_CURRENT.get(email)
     end
   end
 end

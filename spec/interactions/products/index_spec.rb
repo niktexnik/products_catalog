@@ -41,7 +41,6 @@ RSpec.describe Products::Index, type: :interaction do
         params[:page] = 2
         params[:limit] = 2
         expect(run).to be_valid
-        byebug
         expect(run.result.size).to eq(2)
       end
 

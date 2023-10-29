@@ -4,6 +4,44 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/v1/products/favourites":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: integer
+    - name: user_id
+      in: path
+      description: user_id
+      required: true
+      schema:
+        type: integer
+    post:
+      summary: create favourite
+      responses:
+        '200':
+          description: successful
+  "/api/v1/products/favourites/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: integer
+    - name: user_id
+      in: path
+      description: user_id
+      required: true
+      schema:
+        type: integer
+    delete:
+      summary: delete favourite
+      responses:
+        '200':
+          description: successful
   "/api/v1/products":
     get:
       summary: list products
@@ -12,25 +50,31 @@ paths:
           description: successful
     post:
       summary: create product
-      responses:
-        '200':
-          description: successful
-  "/api/v1/products/new":
-    get:
-      summary: new product
-      responses:
-        '200':
-          description: successful
-  "/api/v1/products/{id}/edit":
-    parameters:
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: string
-    get:
-      summary: edit product
+      parameters:
+      - name: name
+        in: path
+        description: name
+        required: true
+        schema:
+          type: string
+      - name: description
+        in: path
+        description: description
+        required: true
+        schema:
+          type: string
+      - name: full_description
+        in: path
+        description: full description
+        required: true
+        schema:
+          type: string
+      - name: image
+        in: path
+        description: image
+        required: true
+        schema:
+          type: file
       responses:
         '200':
           description: successful
@@ -49,21 +93,92 @@ paths:
           description: successful
     patch:
       summary: update product
-      responses:
-        '200':
-          description: successful
-    put:
-      summary: update product
+      parameters:
+      - name: name
+        in: path
+        required: false
+        description: name
+        schema:
+          type: string
+      - name: description
+        in: path
+        required: false
+        description: description
+        schema:
+          type: string
+      - name: full_description
+        in: path
+        required: false
+        description: full description
+        schema:
+          type: string
+      - name: image
+        in: path
+        required: false
+        description: image
+        schema:
+          type: file
       responses:
         '200':
           description: successful
     delete:
       summary: delete product
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+  "/api/v1/login":
+    parameters:
+    - name: email
+      in: path
+      description: email
+      required: true
+      schema:
+        type: integer
+    post:
+      summary: login session
+      responses:
+        '200':
+          description: successful
+  "/api/v1/create":
+    parameters:
+    - name: email
+      in: path
+      description: email
+      required: true
+      schema:
+        type: string
+    - name: code
+      in: path
+      description: code
+      required: true
+      schema:
+        type: integer
+    - name: token
+      in: path
+      description: token
+      required: true
+      schema:
+        type: string
+    post:
+      summary: create session
+      responses:
+        '200':
+          description: successful
+  "/api/v1/destroy":
+    post:
+      summary: delete session
       responses:
         '200':
           description: successful
 servers:
-- url: https://{defaultHost}
+- url: http://localhost:3000
   variables:
     defaultHost:
-      default: www.example.com
+      default: localhost:3000
