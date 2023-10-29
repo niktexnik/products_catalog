@@ -60,11 +60,11 @@ gem 'devise'
 
 gem 'active_interaction'
 
+gem 'database_cleaner'
 gem 'pry-rails'
 gem 'rswag-api'
-gem 'rswag-ui'
 gem 'rswag-specs'
-gem 'database_cleaner'
+gem 'rswag-ui'
 
 # Models
 gem 'annotate'
@@ -87,7 +87,7 @@ group :development, :test do
   gem 'rspec'
   gem 'rspec-rails'
 
-# Code styling
+  # Code styling
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
 end

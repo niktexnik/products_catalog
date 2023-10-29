@@ -14,23 +14,23 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   # Ensure that if we are running js tests, we are using latest webpack assets
   # This will use the defaults of :js and :server_rendering meta tags
-#   ReactOnRails::TestHelper.configure_rspec_to_compile_assets(config)
+  #   ReactOnRails::TestHelper.configure_rspec_to_compile_assets(config)
 
   # Ensure that if we are running js tests, we are using latest webpack assets
   # This will use the defaults of :js and :server_rendering meta tags
-#   ReactOnRails::TestHelper.configure_rspec_to_compile_assets(config)
+  #   ReactOnRails::TestHelper.configure_rspec_to_compile_assets(config)
 
-#   config.fixture_path = "#{Rails.root}/spec/fixtures"
+  #   config.fixture_path = "#{Rails.root}/spec/fixtures"
 
-#   config.use_transactional_fixtures = true
+  #   config.use_transactional_fixtures = true
 
-#   config.infer_spec_type_from_file_location!
+  #   config.infer_spec_type_from_file_location!
 
-#   config.render_views = true
+  #   config.render_views = true
 
-#   config.include Requests::JsonHelpers, type: :controller
-#   config.include ServiceHelpers, type: :controller
-#   config.include FileHelpers
+  #   config.include Requests::JsonHelpers, type: :controller
+  #   config.include ServiceHelpers, type: :controller
+  #   config.include FileHelpers
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
@@ -47,11 +47,11 @@ RSpec.configure do |config|
     # Sidekiq::Queues.clear_all
   end
 
-#   config.after(:all) do
-#     FileUtils.rm_rf(Dir["#{Rails.root}/public/spec_uploads"]) if Rails.env.test?
-#   end
+  #   config.after(:all) do
+  #     FileUtils.rm_rf(Dir["#{Rails.root}/public/spec_uploads"]) if Rails.env.test?
+  #   end
 
-#   config.include Devise::Test::ControllerHelpers, type: :controller
-#   config.include Devise::Test::IntegrationHelpers, type: :feature
-#   config.extend ControllerMacros, type: :controller
+  #   config.include Devise::Test::ControllerHelpers, type: :controller
+  #   config.include Devise::Test::IntegrationHelpers, type: :feature
+  #   config.extend ControllerMacros, type: :controller
 end
