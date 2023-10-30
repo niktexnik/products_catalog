@@ -7,6 +7,9 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
     let(:storage) { FactoryBot.create(:temporary_token_storage) }
     let(:create_params) { { email: storage.email, token: storage.token, code: storage.code } }
     let(:login_params) { { email: 'lolol@ya.ru' } }
+    before do
+      REDIS_CURRENT.set(storage.email, storage.token, ex: 30)
+    end
 
     describe 'POST #login' do
       it 'login' do

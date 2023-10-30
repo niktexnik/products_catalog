@@ -8,8 +8,8 @@ RSpec.describe Sessions::Create do
     let!(:token) { FactoryBot.create(:temporary_token_storage) }
     let(:params) { { email: token.email, token: token.token, code: token.code } }
 
-    after do
-      REDIS_CURRENT.set(token.email, params[:token], ex: 3000)
+    before do
+      REDIS_CURRENT.set(token.email, token.token, ex: 3000)
     end
     it 'returns valid' do
       expect(run).to be_valid
